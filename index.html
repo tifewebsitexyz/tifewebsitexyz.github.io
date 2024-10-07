@@ -13,8 +13,8 @@
             height: 100%;
             overflow: hidden;
             font-family: 'PurpleMagic', sans-serif;
-            color: white; /* Set default text color to white */
-            user-select: none; /* Make all text unselectable */
+            color: white;
+            user-select: none;
         }
 
         .background-video {
@@ -47,8 +47,8 @@
             font-size: 14px;
             padding: 5px;
             border-radius: 5px;
-            font-family: 'Oswald', sans-serif; /* Use Google Font for disclaimer */
-            user-select: none; /* Make disclaimer text unselectable */
+            font-family: 'Oswald', sans-serif;
+            user-select: none;
         }
 
         .contact-info {
@@ -58,13 +58,13 @@
             transform: translate(-50%, -50%);
             z-index: 2;
             font-size: 20px;
-            font-family: 'Bebas Neue', sans-serif; /* Use Google Font for contact info */
-            user-select: none; /* Make contact info text unselectable */
-            text-align: center; /* Center align text for better mobile view */
+            font-family: 'Bebas Neue', sans-serif;
+            user-select: none;
+            text-align: center;
         }
 
         .contact-info a {
-            color: #ff69b4; /* Colorize the links */
+            color: #ff69b4;
             text-decoration: none;
         }
 
@@ -74,15 +74,22 @@
 
         @media (max-width: 768px) {
             .centered-image {
-                width: 80%; /* Adjust image size for mobile */
+                width: 80%;
             }
 
             .contact-info {
-                font-size: 24px; /* Adjust font size for mobile */
+                font-size: 24px;
+                display: block;
+                text-align: center;
+            }
+
+            .contact-info a {
+                display: block;
+                margin-top: 5px;
             }
 
             .disclaimer {
-                font-size: 12px; /* Adjust font size for mobile */
+                font-size: 12px;
             }
         }
     </style>
@@ -95,10 +102,9 @@
         const songs = ["resources/fakecrime.mp3", "resources/geldistreich.mp3", "resources/Verbatim.mp3", "resources/tbilw preview.wav"];
         let lastPlayedIndex = -1;
 
-        // Function to play a random song
         function playRandomSong() {
             if (currentAudio && !currentAudio.paused) {
-                return; // Do nothing if the audio is already playing
+                return;
             }
             let randomIndex;
             do {
@@ -115,16 +121,13 @@
             currentAudio = newAudio;
             isPlaying = true;
 
-            // Update disclaimer text
             const disclaimer = document.getElementById('disclaimer');
             const songFileName = songs[randomIndex].split('/').pop();
             disclaimer.textContent = `playing: ${songFileName}.`;
 
-            // Add event listener to play next random song when the current song ends
             currentAudio.addEventListener('ended', playRandomSong);
         }
 
-        // Add event listener to play a random song when the user clicks anywhere on the page
         document.addEventListener('click', playRandomSong);
     </script>
 </head>
@@ -142,7 +145,31 @@
     </audio>
 
     <div class="contact-info">
-        contact // <a href="https://ig.me/m/joonaas.2008" target="_blank">instagram</a> // <a href="mailto:jk@klassen.one">mail</a>
+        <span class="desktop">contact // <a href="https://ig.me/m/joonaas.2008" target="_blank">instagram</a> // <a href="mailto:jk@klassen.one">mail</a></span>
+        <span class="mobile">
+            <strong>contact</strong><br>
+            <a href="https://ig.me/m/joonaas.2008" target="_blank">instagram</a><a href="mailto:jk@klassen.one">mail</a>
+        </span>
     </div>
+
+    <style>
+        @media (max-width: 768px) {
+            .contact-info .desktop {
+                display: none;
+            }
+            .contact-info .mobile {
+                display: block;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .contact-info .desktop {
+                display: block;
+            }
+            .contact-info .mobile {
+                display: none;
+            }
+        }
+    </style>
 </body>
 </html>
